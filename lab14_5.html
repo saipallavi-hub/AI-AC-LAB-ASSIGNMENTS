@@ -1,0 +1,443 @@
+Task 1 – Image Gallery Website
+<!--Create an image gallery web page.:Display images in a grid layout Use AI to Optimize layout using CSS Grid.Add hover zoom or overlay effects.Ensure mobile responsiveness.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Gallery</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f5f5f5;
+margin:0;
+padding:20px;
+}
+
+h1{
+text-align:center;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.gallery img{
+width:100%;
+height:200px;
+object-fit:cover;
+border-radius:10px;
+transition:0.4s;
+}
+
+.gallery img:hover{
+transform:scale(1.1);
+box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Image Gallery</h1>
+
+<div class="gallery">
+<img src="https://picsum.photos/400/300?1">
+<img src="https://picsum.photos/400/300?2">
+<img src="https://picsum.photos/400/300?3">
+<img src="https://picsum.photos/400/300?4">
+<img src="https://picsum.photos/400/300?5">
+<img src="https://picsum.photos/400/300?6">
+</div>
+
+</body>
+</html>
+
+<!--Task 2– Profile Card Generator
+Create a profile card web page.Display user image, name, role, and social media links. Use AI to: Suggest modern UI colors and fonts. Design the card using Flexbox.-->
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+body{
+font-family:Arial;
+background:#eef2f7;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.card{
+background:white;
+padding:20px;
+width:300px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+img{
+width:120px;
+height:120px;
+border-radius:50%;
+}
+
+h2{
+margin:10px 0;
+}
+
+.social a{
+margin:10px;
+text-decoration:none;
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<img src="https://i.pravatar.cc/150">
+
+<h2>Sai Pallavi</h2>
+
+<p>Web Developer</p>
+
+<div class="social">
+<a href="#">🌐</a>
+<a href="#">📧</a>
+<a href="#">💼</a>
+</div>
+
+</div>
+
+</body>
+</html>
+
+<!--Task 3 -Develop a dynamic shopping cart system
+Add, remove, and update product quantities. Display real-time total price.Manage cart state using JavaScript objects. Persist cart data in localStorage.-->
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+body{
+font-family:Arial;
+padding:20px;
+}
+
+.product{
+border:1px solid #ccc;
+padding:10px;
+margin:10px;
+}
+
+button{
+padding:5px 10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Shopping Cart</h2>
+
+<div class="product">
+Laptop - ₹50000
+<button onclick="addToCart('Laptop',50000)">Add</button>
+</div>
+
+<div class="product">
+Mobile - ₹20000
+<button onclick="addToCart('Mobile',20000)">Add</button>
+</div>
+
+<h3>Cart</h3>
+
+<ul id="cart"></ul>
+
+<h3>Total: ₹<span id="total">0</span></h3>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || []
+
+function addToCart(name,price){
+
+cart.push({name,price})
+
+localStorage.setItem("cart",JSON.stringify(cart))
+
+displayCart()
+}
+
+function removeItem(index){
+
+cart.splice(index,1)
+
+localStorage.setItem("cart",JSON.stringify(cart))
+
+displayCart()
+}
+
+function displayCart(){
+
+let list=document.getElementById("cart")
+list.innerHTML=""
+
+let total=0
+
+cart.forEach((item,index)=>{
+
+total+=item.price
+
+list.innerHTML+=`
+<li>
+${item.name} - ₹${item.price}
+<button onclick="removeItem(${index})">Remove</button>
+</li>`
+})
+
+document.getElementById("total").innerText=total
+}
+
+displayCart()
+
+</script>
+
+</body>
+</html>
+
+<!--Task 4 – Role-Based Access Control Application
+Create a role-based web application. Admin, Editor, User roles. Conditional UI rendering. Design access control logic. Maintain secure state transitions. Create scalable UI components.-->
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+}
+
+.hidden{
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Role Based Access</h2>
+
+<select onchange="changeRole(this.value)">
+<option>User</option>
+<option>Editor</option>
+<option>Admin</option>
+</select>
+
+<div id="admin" class="hidden">
+<h3>Admin Panel</h3>
+<p>Full Access</p>
+</div>
+
+<div id="editor" class="hidden">
+<h3>Editor Panel</h3>
+<p>Edit Content</p>
+</div>
+
+<div id="user">
+<h3>User Panel</h3>
+<p>View Content</p>
+</div>
+
+<script>
+
+function changeRole(role){
+
+document.getElementById("admin").classList.add("hidden")
+document.getElementById("editor").classList.add("hidden")
+document.getElementById("user").classList.add("hidden")
+
+if(role=="Admin")
+document.getElementById("admin").classList.remove("hidden")
+
+else if(role=="Editor")
+document.getElementById("editor").classList.remove("hidden")
+
+else
+document.getElementById("user").classList.remove("hidden")
+}
+
+</script>
+
+</body>
+</html>
+
+<!--Task 5 – Multi-Language Website
+Design a multilingual website. Switch languages dynamically. Persist language preference. Structure translation files. Handle RTL/LTR layouts. Improve accessibility.-->
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<select onchange="changeLang(this.value)">
+<option value="en">English</option>
+<option value="ta">Tamil</option>
+<option value="hi">Hindi</option>
+</select>
+
+<h2 id="title">Welcome</h2>
+
+<p id="text">This is multilingual website</p>
+
+<script>
+
+const lang={
+
+en:{
+title:"Welcome",
+text:"This is multilingual website"
+},
+
+ta:{
+title:"வரவேற்கிறோம்",
+text:"இது பல மொழி இணையதளம்"
+},
+
+hi:{
+title:"स्वागत है",
+text:"यह बहुभाषी वेबसाइट है"
+}
+
+}
+
+function changeLang(language){
+
+localStorage.setItem("lang",language)
+
+document.getElementById("title").innerText=lang[language].title
+document.getElementById("text").innerText=lang[language].text
+}
+
+let saved=localStorage.getItem("lang") || "en"
+changeLang(saved)
+
+</script>
+
+</body>
+</html>
+
+<!--Task 6 – Online Examination System
+Create an online exam interface.Timer, questions, and submission.prevent multiple submissions. Manage exam state. Improve exam UX. Ensure accessibility.-->
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+body{
+font-family:Arial;
+padding:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Online Exam</h2>
+
+<div id="timer">Time: 60</div>
+
+<form id="exam">
+
+<p>1. HTML stands for?</p>
+
+<input type="radio" name="q1" value="1">Hyper Text Markup Language<br>
+<input type="radio" name="q1" value="0">High Transfer Machine Language<br>
+
+<p>2. CSS used for?</p>
+
+<input type="radio" name="q2" value="1">Styling<br>
+<input type="radio" name="q2" value="0">Database<br>
+
+<button type="button" onclick="submitExam()">Submit</button>
+
+</form>
+
+<h3 id="result"></h3>
+
+<script>
+
+let time=60
+
+let timer=setInterval(()=>{
+
+time--
+
+document.getElementById("timer").innerText="Time: "+time
+
+if(time==0){
+submitExam()
+}
+
+},1000)
+
+function submitExam(){
+
+clearInterval(timer)
+
+let form=document.forms["exam"]
+
+let score=0
+
+score+=Number(form.q1.value || 0)
+score+=Number(form.q2.value || 0)
+
+document.getElementById("result").innerText=
+"Your Score: "+score+"/2"
+
+document.getElementById("exam").style.display="none"
+}
+
+</script>
+
+</body>
+</html>
